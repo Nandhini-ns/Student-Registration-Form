@@ -5,13 +5,78 @@ body{
 .container-fluid {
       max-width: 700px;
       margin: 30px auto;
-      background: #fff;
+      background: #ffffffde;
       padding: 30px;
       border-radius: 10px;
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     }
     a{
-        font-size: 12px;
-        
+        font-size: 12px;    
         
     }
+   .material-symbols-outlined{
+    font-size: 56px;
+    color: #da8c62;
+    border-radius: 50%;
+    background: #bcd4e7;
+    border: 6px solid #bcd4e7;
+   }
+    input[type="text"],
+    input[type="number"],
+    input[type="date"],
+    select[type="section"],
+    textarea {
+     padding: 10px 15px;
+     border: 2px solid #ccc;
+     border-radius: 8px;
+     font-size: 1rem;
+     transition: all 0.3s ease-in-out;
+     width: 100%;
+    }
+    input:focus,
+    select:focus,
+    textarea:focus {
+    border-color: #496184;
+    box-shadow: 0 0 0 0.2rem rgba(139, 141, 144, 0.2);
+    outline: none;
+    }
+    label.form-label{
+     font-weight: 600;
+     margin-bottom: 5px;
+     color: #333;
+    }
+   .error {
+    font-size: 0.875rem;
+    color: #dc3545;
+    margin-top: 4px;
+    margin-left: 2px;
+    }
+   input[type="radio"] {
+     margin-right: 6px;
+     margin-left: 10px;
+     }
+   .btn-reg{
+    background: #0d6efd;
+    color: #111111;
+    border: none;
+    font-weight: 600;
+    padding: 10px 30px;
+    border-radius: 8px;
+   }
+   .btn-reg:hover {
+  background-color: #0a58ca;     
+  color: #fff;
+  transform: scale(1.05);       
+  box-shadow: 0 6px 12px rgba(13, 110, 253, 0.4);
+  cursor: pointer;
+   }
+
+
+   /* table */
+   .table th, table td{
+    vertical-align: middle;
+    text-align: center;
+   }
+   .btn{
+    margin: 2px;
+   }

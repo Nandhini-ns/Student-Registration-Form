@@ -16,42 +16,47 @@
            <span class="material-symbols-outlined ">person_add</span> 
            <h2>Register Form</h2>
         </div>
-            <form>
+            <form id="regidterform" method="post">
           
               <div class="row d-flex">
                 <label for="name" class="form-label">Name<span class="text-danger">*</span></label>
               <div class="col-md-6 col-sm-6 mb-3">
-                <input type="text" class="form-control" placeholder="First Name" required>
+                <input type="text" id="name" name="firstName" class="form-control" placeholder="First Name" required>
                 <a>First</a>
                 <p class="error" id="nameError"></p>
               </div>
              <div class="col-md-6 col-sm-6 mb-3">
-                <input type="text" class="form-control" placeholder="Last Name" required>
+                <input type="text" id="last" name="lastName" class="form-control" placeholder="Last Name" required>
                 <a>Last</a>
                 <p class="error" id="lastname"></p>
               </div>
               </div>
-               
-                  <label for="date" class="form-label">Date Of Birth <span class="text-danger">*</span></label>
-                  <input type="date" class="form-control" id="dob"> <br>
-                   <p class="error" id="dof"></p>         
-                   <label for="gen" class="form-label">Gender<span class="text-danger">*</span></label><br>
-                    <input type="radio" class="form-check-input-sm " id="radio" name="gen" value="rdo1">
+                 <label for="date" class="form-label">Date Of Birth <span class="text-danger">*</span></label>
+                  <input type="date" class="form-control" id="dob">
+                   <p class="error" id="dof"></p>  
+
+                   <label for="gen" class="form-label" id="gen">Gender<span class="text-danger">*</span></label><br>
+
+                    <input type="radio" class="form-check-input-sm " id="male" name="gen" value="rdo1">
                    <label class="form-check-label" for="radio1">Male</label>
-                    <input type="radio" class="form-check-input-sm" id="radio" name="gen" value="rdo2">
+
+                    <input type="radio" class="form-check-input-sm" id="female" name="gen" value="rdo2">
                    <label class="form-check-label" for="radio2">Female</label>
-                    <input type="radio" class="form-check-input-sm" id="radio" name="gen" value="rdo3">
+
+                    <input type="radio" class="form-check-input-sm" id="other" name="gen" value="rdo3">
                    <label class="form-check-label" for="radio3">Others</label>
-                   <p class="error" id="gender"></p>
+
+                   <p class="error" id="genderError"></p>
+
                 <div class="row d-flex">
-                      <div class="col-md-6 col-sm-6 mb-3">
-                         <label for="ass" class="form-check-label">Class<span class="text-danger">*</span></label>
-                         <input type="text" class="form-control" id="ass">
-                           <p class="error" id="ass"></p>
+                      <div class="col-md-6 col-sm-6 mb-4">
+                         <label for="ass" class="form-label">Class<span class="text-danger">*</span></label>
+                         <input type="text" class="form-control" id="ass" placeholder="Enter Class" required>
+                           <p class="error" id="assError"></p>
                       </div>
                     <div class="col-md-6 col-sm-6 mb-4" >
-                        <label for="sec" class="form-label">Section <span class="text-danger">*</span></label>
-                        <select class="form-select" id="section" name="sec">
+                        <label for="section" class="form-label">Section <span class="text-danger">*</span></label>
+                        <select type="section" class="form-select" id="section" name="sec">
                             <option>Choose</option>
                             <option>Section-A</option>
                             <option>Section-B</option>
@@ -59,19 +64,38 @@
                             <option>Section-D</option>
                             <option>Section-A1</option>
                         </select>
+                        <p class="error" id="scs"></p> 
                     </div>
                 </div>
-                   
-              
-          
-            </form>
-        
+                <label for="bim" class="form-label">BIMS Number<span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="bims" placeholder="Enter BIMS Number" required>
+                   <p class="error" id="msError"></p> 
+              <div class="row d-flex">
+                <div class="col-md-6 col-sm-6 mb-4">
+                  <label for="join" class="form-label">Date of Joining<span class="text-danger">*</span></label>
+                  <input type="date" class="form-control" id="join" placeholder="Enter Date of join" required>
+                  <p class="error" id="joError"></p>
+                </div> 
+                <div class="col-md-6 col-sm-6 mb-2">
+                  <label for="mobile" class="form-label">Phone Number<span class="text-danger">*</span></label>
+                  <input type="number" class="form-control" id="Phone" placeholder="Enter Phone Number" required >
+                  <p class="error" id="mobiError"></p>
+                </div> 
+              </div>
+              <label for="address" class="form-label">Address<span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="address" placeholder="Enter Address" required>
+               <p class="error" id="addressError"></p>
 
+               <div class="text-center mt-4">
+                 <button type="submit" class="btn btn-reg px-5">Register</button>
+               </div>   
+            </form>
+             <p class="message" id="successMessage"></p>
     </div>
    
     
 
-
+<script src="script.js"></script>
     
 </body>
 </html>
