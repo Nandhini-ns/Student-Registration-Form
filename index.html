@@ -16,34 +16,36 @@
            <span class="material-symbols-outlined ">person_add</span> 
            <h2>Register Form</h2>
         </div>
-            <form id="regidterform" method="post">
-          
-              <div class="row d-flex">
-                <label for="name" class="form-label">Name<span class="text-danger">*</span></label>
-              <div class="col-md-6 col-sm-6 mb-3">
-                <input type="text" id="name" name="firstName" class="form-control" placeholder="First Name" required>
-                <a>First</a>
-                <p class="error" id="nameError"></p>
-              </div>
-             <div class="col-md-6 col-sm-6 mb-3">
-                <input type="text" id="last" name="lastName" class="form-control" placeholder="Last Name" required>
-                <a>Last</a>
-                <p class="error" id="lastname"></p>
-              </div>
-              </div>
-                 <label for="date" class="form-label">Date Of Birth <span class="text-danger">*</span></label>
+          <form id="registerform" method="post">
+            <div class="row mb-3">
+               <!-- First Name -->
+               <div class="col-md-6 col-sm-12">
+                  <label for="name" class="form-label">First Name<span class="text-danger">*</span></label>
+                  <input type="text" id="name" name="firstName" class="form-control" placeholder="First Name" required>
+                  <p class="error" id="nameError"></p>
+               </div>
+
+              <!-- Last Name -->
+              <div class="col-md-6 col-sm-12">
+               <label for="last" class="form-label">Last Name<span class="text-danger">*</span></label>
+               <input type="text" id="last" name="lastName" class="form-control" placeholder="Last Name" required>
+               <p class="error" id="lastError"></p>
+             </div>
+            </div>
+
+                 <label for="date" class="form-label mt-2">Date Of Birth <span class="text-danger">*</span></label>
                   <input type="date" class="form-control" id="dob">
-                   <p class="error" id="dof"></p>  
+                   <p class="error" id="dobError"></p>  
 
-                   <label for="gen" class="form-label" id="gen">Gender<span class="text-danger">*</span></label><br>
+                   <label for="gen" class="form-label" id="gender">Gender<span class="text-danger">*</span></label><br>
 
-                    <input type="radio" class="form-check-input-sm " id="male" name="gen" value="rdo1">
+                    <input type="radio" class="form-check-input-sm " id="male" name="gender" value="Male">
                    <label class="form-check-label" for="radio1">Male</label>
 
-                    <input type="radio" class="form-check-input-sm" id="female" name="gen" value="rdo2">
+                    <input type="radio" class="form-check-input-sm" id="female" name="gender" value="Female">
                    <label class="form-check-label" for="radio2">Female</label>
 
-                    <input type="radio" class="form-check-input-sm" id="other" name="gen" value="rdo3">
+                    <input type="radio" class="form-check-input-sm" id="other" name="gender" value="Other">
                    <label class="form-check-label" for="radio3">Others</label>
 
                    <p class="error" id="genderError"></p>
@@ -51,35 +53,35 @@
                 <div class="row d-flex">
                       <div class="col-md-6 col-sm-6 mb-4">
                          <label for="ass" class="form-label">Class<span class="text-danger">*</span></label>
-                         <input type="text" class="form-control" id="ass" placeholder="Enter Class" required>
-                           <p class="error" id="assError"></p>
+                         <input type="text" class="form-control" id="class" placeholder="Enter Class" required>
+                           <p class="error" id="classError"></p>
                       </div>
                     <div class="col-md-6 col-sm-6 mb-4" >
                         <label for="section" class="form-label">Section <span class="text-danger">*</span></label>
                         <select type="section" class="form-select" id="section" name="sec">
-                            <option>Choose</option>
+                            <option value="">Choose</option>
                             <option>Section-A</option>
                             <option>Section-B</option>
                             <option>Section-C</option>
                             <option>Section-D</option>
                             <option>Section-A1</option>
                         </select>
-                        <p class="error" id="scs"></p> 
+                        <p class="error" id="sectionError"></p> 
                     </div>
                 </div>
-                <label for="bim" class="form-label">BIMS Number<span class="text-danger">*</span></label>
-                <input type="text" class="form-control" id="bims" placeholder="Enter BIMS Number" required>
-                   <p class="error" id="msError"></p> 
+                <label for="bim" class="form-label">EMIS Number<span class="text-danger">*</span></label>
+                <input type="number" class="form-control" id="emis" placeholder="Enter EMIS Number" required>
+                   <p class="error" id="emisError"></p> 
               <div class="row d-flex">
                 <div class="col-md-6 col-sm-6 mb-4">
                   <label for="join" class="form-label">Date of Joining<span class="text-danger">*</span></label>
                   <input type="date" class="form-control" id="join" placeholder="Enter Date of join" required>
-                  <p class="error" id="joError"></p>
+                  <p class="error" id="joinError"></p>
                 </div> 
                 <div class="col-md-6 col-sm-6 mb-2">
                   <label for="mobile" class="form-label">Phone Number<span class="text-danger">*</span></label>
-                  <input type="number" class="form-control" id="Phone" placeholder="Enter Phone Number" required >
-                  <p class="error" id="mobiError"></p>
+                  <input type="number" class="form-control" id="phone" placeholder="Enter Phone Number" required >
+                  <p class="error" id="phoneError"></p>
                 </div> 
               </div>
               <label for="address" class="form-label">Address<span class="text-danger">*</span></label>

@@ -2,72 +2,82 @@ body{
     font-family: Arial, Helvetica, sans-serif;
     padding: 20px;
 }
+ /* body{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+} */
 .container-fluid {
-      max-width: 700px;
-      margin: 30px auto;
-      background: #ffffffde;
-      padding: 30px;
+      max-width: 600px;
+      margin: 20px auto;
+      background: #b9b7b7de;
+      padding: 20px;
       border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 0 10px rgba(16, 16, 16, 0.72);
+      overflow: hidden;
     }
     a{
         font-size: 12px;    
         
     }
    .material-symbols-outlined{
-    font-size: 56px;
+    font-size: 48px;
     color: #da8c62;
     border-radius: 50%;
-    background: #bcd4e7;
-    border: 6px solid #bcd4e7;
-   }
+     border: 6px solid #9fc3e0;
+     display: inline-block;
+     margin-bottom: 10px;
+    }
     input[type="text"],
     input[type="number"],
     input[type="date"],
     select[type="section"],
     textarea {
-     padding: 10px 15px;
-     border: 2px solid #ccc;
-     border-radius: 8px;
-     font-size: 1rem;
+     padding: 6px 12px;
+     border: 1.5px solid #ccc;
+     border-radius: 6px;
+     font-size: 0.95rem;
      transition: all 0.3s ease-in-out;
      width: 100%;
+     margin-top: 12px;
     }
     input:focus,
     select:focus,
     textarea:focus {
     border-color: #496184;
-    box-shadow: 0 0 0 0.2rem rgba(139, 141, 144, 0.2);
+    box-shadow: 0 0 0 0.1rem rgba(92, 92, 94, 0.2);
     outline: none;
     }
     label.form-label{
      font-weight: 600;
-     margin-bottom: 5px;
+     margin-bottom: 4px;
      color: #333;
+     font-size: 0.95rem;
     }
    .error {
-    font-size: 0.875rem;
-    color: #dc3545;
-    margin-top: 4px;
+    font-size: 0.85rem;
+    color: #6c131c;
+    margin-top: 2px;
     margin-left: 2px;
     }
    input[type="radio"] {
-     margin-right: 6px;
-     margin-left: 10px;
+     margin-right: 4px;
+     margin-left: 6px;
      }
    .btn-reg{
     background: #0d6efd;
     color: #111111;
     border: none;
     font-weight: 600;
-    padding: 10px 30px;
-    border-radius: 8px;
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-size: 0.95rem;
    }
    .btn-reg:hover {
   background-color: #0a58ca;     
   color: #fff;
   transform: scale(1.05);       
-  box-shadow: 0 6px 12px rgba(13, 110, 253, 0.4);
+  box-shadow: 0 4px 8px rgba(13, 110, 253, 0.4);
   cursor: pointer;
    }
 
