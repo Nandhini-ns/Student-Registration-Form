@@ -1,5 +1,30 @@
+
+
 const apiUrl = "https://6858d592138a18086dfc021c.mockapi.io/Register";
+document.addEventListener("DOMContentLoaded", function () {
+
 const form = document.getElementById("registerform");
+
+const urlParams = new URLSearchParams(window.location.search);
+  const studentId = urlParams.get("id");
+
+  if (studentId) {
+    // ✅ Pre-fill form when editing
+    fetch(`${apiUrl}/${studentId}`)
+      .then(res => res.json())
+      .then(student => {
+        document.getElementById("name").value = student.name;
+        document.getElementById("last").value = student.last;
+        document.getElementById("dob").value = student.dob;
+        document.querySelector(`input[name="gender"][value="${student.gender}"]`).checked = true;
+        document.getElementById("Class").value = student.studentclass;
+        document.getElementById("section").value = student.section;
+        document.getElementById("emis").value = student.emis;
+        document.getElementById("join").value = student.joinDate;
+        document.getElementById("phone").value = student.phone;
+        document.getElementById("address").value = student.address;
+      });
+  }
 
 if (form) {
     form.addEventListener("submit", function (e) {
@@ -29,7 +54,7 @@ if (form) {
         const phoneError = document.getElementById("phoneError");
         const addressError = document.getElementById("addressError");
         const successMessage = document.getElementById("successMessage");
-
+        
         // Reset error messages
         nameError.textContent = name ? "" : "First Name is required!";
         lastError.textContent = last ? "" : "Last Name is required!";
@@ -41,7 +66,6 @@ if (form) {
         joinError.textContent = joinDate ? "" : "Joining Date is required!";
         phoneError.textContent = phone ? "" : "Phone Number is required!";
         addressError.textContent = address ? "" : "Address is required!";
-
         // Validate
         if (
             name && last && dob && gender && studentclass &&
@@ -60,33 +84,36 @@ if (form) {
                 phone,
                 address
             };
+        const requestUrl = studentId ? `${apiUrl}/${studentId}` : apiUrl;
+        const requestMethod = studentId ? "PUT" : "POST";
 
-            fetch(apiUrl, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(studentData)
-            })
-                .then(res => res.json())
-                .then(data => {
-                    console.log("Success:", data);
-                    successMessage.textContent = "Student Registered Successfully!";
-                    successMessage.style.color = "green";
-                    form.reset();
-                    // Redirect after success
-                    window.location.href = "table.html";
-                })
-                .catch(error => {
-                    console.error("Error:", error);
-                    successMessage.textContent = "Registration failed!";
-                    successMessage.style.color = "red";
-                });
-        } else {
-            successMessage.textContent = "";
-        }
+        fetch(requestUrl, {
+          method: requestMethod,
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(studentData)
+        })
+          .then(res => res.json())
+          .then(data => {
+            successMessage.textContent = studentId
+              ? "Student Updated Successfully!"
+              : "Student Registered Successfully!";
+            successMessage.style.color = "green";
+            form.reset();
+            window.location.href = "table.html";
+          })
+          .catch(error => {
+            console.error("Error:", error);
+            successMessage.textContent = "Operation failed!";
+            successMessage.style.color = "red";
+          });
+      } else {
+        successMessage.textContent = "";
+      }
     });
-}
+  }
+});
 
  function loadStudentTable() {
   const tbody = document.getElementById("studentBody");
@@ -94,7 +121,6 @@ if (form) {
   fetch(apiUrl)
     .then(res => res.json())
     .then(data => {
-      const tbody = document.getElementById("studentBody");
       tbody.innerHTML = "";
       data.forEach((student, index) => {
         const row = `
@@ -103,10 +129,11 @@ if (form) {
             <td>${student.name}</td>
             <td>${student.last}</td>
             <td>${student.dob}</td>
-            <td>${student.class}</td>
+            <td>${student.gender}</td>
+            <td>${student.studentclass}</td>
             <td>${student.section}</td>
             <td>${student.emis}</td>
-            <td>${student.joiningDate}</td>
+            <td>${student.joinDate}</td>
             <td>${student.phone}</td>
             <td>${student.address}</td>
             <td>
@@ -122,25 +149,35 @@ if (form) {
 }
 
 loadStudentTable();
-
 function viewStudent(id) {
   fetch(`${apiUrl}/${id}`)
     .then(res => res.json())
     .then(student => {
       document.getElementById("viewBody").innerHTML = `
-        Name: ${student.name} ${student.last}<br>
-        DOB: ${student.dob}<br>
-        Gender: ${student.gender}<br>
-        Class: ${student.studentclass}<br>
-        Section: ${student.section}<br>
-        EMIS: ${student.emis}<br>
-        Join Date: ${student.joiningDate}<br>
-        Phone: ${student.phone}<br>
-        Address: ${student.address}
+        <table class="table">
+          <tr><th>First Name</th><td>${student.name}</td></tr>
+          <tr><th>Last Name</th><td>${student.last}</td></tr>
+          <tr><th>DOB</th><td>${student.dob}</td></tr>
+          <tr><th>Gender</th><td>${student.gender}</td></tr>
+          <tr><th>Class</th><td>${student.studentclass}</td></tr>
+          <tr><th>Section</th><td>${student.section}</td></tr>
+          <tr><th>EMIS</th><td>${student.emis}</td></tr>
+          <tr><th>Join Date</th><td>${student.joinDate}</td></tr>
+          <tr><th>Phone</th><td>${student.phone}</td></tr>
+          <tr><th>Address</th><td>${student.address}</td></tr>
+        </table>
       `;
-      document.getElementById("viewModal").style.display = "block";
+
+      // Bootstrap 5 way to show modal
+      const viewModal = new bootstrap.Modal(document.getElementById("viewModal"));
+      viewModal.show();
+    })
+    .catch(err => {
+      console.error("Error:", err);
+      alert("Something went wrong while loading the student details.");
     });
 }
+
 
 function closeView() {
   document.getElementById("viewModal").style.display = "none";
