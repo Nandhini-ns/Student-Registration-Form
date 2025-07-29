@@ -66,6 +66,32 @@ if (form) {
         joinError.textContent = joinDate ? "" : "Joining Date is required!";
         phoneError.textContent = phone ? "" : "Phone Number is required!";
         addressError.textContent = address ? "" : "Address is required!";
+
+
+        
+    // Phone number validation (10 digits)
+    if (phone.length !== 10 || !/^\d{10}$/.test(phone)) {
+        phoneError.textContent = "Phone number must be exactly 10 digits";
+        return;
+    }
+
+    // EMIS number validation (15 digits)
+    if (emis.length !== 15 || !/^\d{15}$/.test(emis)) {
+        emisError.textContent = "EMIS number must be exactly 15 digits";
+        return;
+    }
+
+    // Class validation (only I–XII)
+    const allowedClasses = [
+        "I", "II", "III", "IV", "V", "VI", "VII",
+        "VIII", "IX", "X", "XI", "XII"
+    ];
+    if (!allowedClasses.includes(studentclass.toUpperCase())) {
+        ClassError.textContent = "Enter valid class (I to XII only)";
+        return;
+    }
+
+        
         // Validate
         if (
             name && last && dob && gender && studentclass &&
@@ -128,12 +154,12 @@ if (form) {
             <td>${index + 1}</td>
             <td>${student.name}</td>
             <td>${student.last}</td>
-            <td>${student.dob}</td>
+            <td>${formatDateToDMY(student.dob)}</td>
             <td>${student.gender}</td>
             <td>${student.studentclass}</td>
             <td>${student.section}</td>
             <td>${student.emis}</td>
-            <td>${student.joinDate}</td>
+            <td>${formatDateToDMY(student.joinDate)}</td>
             <td>${student.phone}</td>
             <td>${student.address}</td>
             <td>
@@ -157,12 +183,12 @@ function viewStudent(id) {
         <table class="table">
           <tr><th>First Name</th><td>${student.name}</td></tr>
           <tr><th>Last Name</th><td>${student.last}</td></tr>
-          <tr><th>DOB</th><td>${student.dob}</td></tr>
+          <tr><th>DOB</th><td>${formatDateToDMY(student.dob)}</td></tr>
           <tr><th>Gender</th><td>${student.gender}</td></tr>
           <tr><th>Class</th><td>${student.studentclass}</td></tr>
           <tr><th>Section</th><td>${student.section}</td></tr>
           <tr><th>EMIS</th><td>${student.emis}</td></tr>
-          <tr><th>Join Date</th><td>${student.joinDate}</td></tr>
+          <tr><th>Join Date</th><td>${formatDateToDMY(student.joinDate)}</td></tr>
           <tr><th>Phone</th><td>${student.phone}</td></tr>
           <tr><th>Address</th><td>${student.address}</td></tr>
         </table>
@@ -195,5 +221,105 @@ function deleteStudent(id) {
     .then(() => loadStudentTable());
   }
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    const searchInput = document.getElementById("searchInput");
+    const tbody = document.getElementById("studentBody");
+
+    searchInput.addEventListener("input", function () {
+        const filter = searchInput.value.toLowerCase();
+        const rows = tbody.getElementsByTagName("tr");
+
+        for (let row of rows) {
+            const firstName = row.cells[1]?.textContent.toLowerCase();
+            if (firstName.includes(filter)) {
+                row.style.display = "";
+            } else {
+                row.style.display = "none";
+            }
+        }
+    });
+});
+
+// All field IDs and their corresponding error span IDs
+const fields = [
+  { id: "name", errorId: "nameError" },
+  { id: "last", errorId: "lastError" },
+  { id: "dob", errorId: "dobError" },
+  { id: "Class", errorId: "ClassError" },
+  { id: "section", errorId: "sectionError" },
+  { id: "emis", errorId: "emisError" },
+  { id: "join", errorId: "joinError" },
+  { id: "phone", errorId: "phoneError" },
+  { id: "address", errorId: "addressError" }
+];
+
+// Loop through all fields and add focus event to clear error text
+fields.forEach(field => {
+  const input = document.getElementById(field.id);
+  const error = document.getElementById(field.errorId);
+  if (input && error) {
+    input.addEventListener("focus", () => {
+      error.textContent = "";
+    });
+  }
+});
+
+// For gender radio buttons - clear error on focus
+const genderInputs = document.querySelectorAll('input[name="gender"]');
+genderInputs.forEach(input => {
+  input.addEventListener("focus", () => {
+    const genderError = document.getElementById("genderError");
+    if (genderError) genderError.textContent = "";
+  });
+});
+
+function formatDateToDMY(dateString) {
+  const [year, month, day] = dateString.split("-");
+  return `${day}-${month}-${year}`;
+}
+
+// Restrict phone input to exactly 10 digits
+const phoneInput = document.getElementById("phone");
+phoneInput.addEventListener("input", () => {
+  if (phoneInput.value.length > 10) {
+    phoneInput.value = phoneInput.value.slice(0, 10);
+  }
+});
+function goBack() {
+    window.location.href = "index.html"; // 🔁 your form page path
+  }
+
+// form.addEventListener("submit", function (e) {
+//   // Phone number validation (only 10 digits)
+//   if (phoneInput.value.length !== 10) {
+//     phoneError.textContent = "Phone number must be exactly 10 digits";
+//     e.preventDefault();
+//     return;
+//   }
+
+//   // EMIS validation (exactly 15 digits)
+//   const emisInput = document.getElementById("emis");
+//   if (emisInput.value.length !== 15) {
+//     emisError.textContent = "EMIS must be exactly 15 digits";
+//     e.preventDefault();
+//     return;
+//   }
+
+//   // Class validation (only I to XII)
+//   const allowedClasses = [
+//     "I", "II", "III", "IV", "V", "VI", "VII",
+//     "VIII", "IX", "X", "XI", "XII"
+//   ];
+//   const classInput = document.getElementById("Class");
+//   if (!allowedClasses.includes(classInput.value.trim().toUpperCase())) {
+//     ClassError.textContent = "Enter valid class (I to XII only)";
+//     e.preventDefault();
+//     return;
+//   }
+// });
+
+
+
 
 
