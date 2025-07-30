@@ -9,7 +9,6 @@ const urlParams = new URLSearchParams(window.location.search);
   const studentId = urlParams.get("id");
 
   if (studentId) {
-    // ✅ Pre-fill form when editing
     fetch(`${apiUrl}/${studentId}`)
       .then(res => res.json())
       .then(student => {
@@ -17,7 +16,7 @@ const urlParams = new URLSearchParams(window.location.search);
         document.getElementById("last").value = student.last;
         document.getElementById("dob").value = student.dob;
         document.querySelector(`input[name="gender"][value="${student.gender}"]`).checked = true;
-        document.getElementById("Class").value = student.studentclass;
+        document.getElementById("class").value = student.studentclass;
         document.getElementById("section").value = student.section;
         document.getElementById("emis").value = student.emis;
         document.getElementById("join").value = student.joinDate;
@@ -35,7 +34,7 @@ if (form) {
         const last = document.getElementById("last").value.trim();
         const dob = document.getElementById("dob").value;
         const gender = document.querySelector('input[name="gender"]:checked');
-        const studentclass = document.getElementById("Class").value.trim();
+        const studentclass = document.getElementById("class").value.trim();
         const section = document.getElementById("section").value.trim();
         const emis = document.getElementById("emis").value.trim();
         const joinDate = document.getElementById("join").value;
@@ -47,7 +46,7 @@ if (form) {
         const lastError = document.getElementById("lastError");
         const dobError = document.getElementById("dobError");
         const genderError = document.getElementById("genderError");
-        const ClassError = document.getElementById("ClassError");
+        const classError = document.getElementById("classError");
         const sectionError = document.getElementById("sectionError");
         const emisError = document.getElementById("emisError");
         const joinError = document.getElementById("joinError");
@@ -60,38 +59,22 @@ if (form) {
         lastError.textContent = last ? "" : "Last Name is required!";
         dobError.textContent = dob ? "" : "Date of Birth is required!";
         genderError.textContent = gender ? "" : "Gender is required!";
-        ClassError.textContent = studentclass ? "" : "Class is required!";
+        classError.textContent = studentclass ? "" : "Class is required!";
         sectionError.textContent = section ? "" : "Section is required!";
         emisError.textContent = emis ? "" : "EMIS Number is required!";
-        joinError.textContent = joinDate ? "" : "Joining Date is required!";
+        joinError.textContent = joinDate ? "" : "Date of Joining is required!";
         phoneError.textContent = phone ? "" : "Phone Number is required!";
         addressError.textContent = address ? "" : "Address is required!";
 
-
-        
-    // Phone number validation (10 digits)
     if (phone.length !== 10 || !/^\d{10}$/.test(phone)) {
-        phoneError.textContent = "Phone number must be exactly 10 digits";
+        // phoneError.textContent = "Phone number must be exactly 10 digits";
         return;
     }
-
     // EMIS number validation (15 digits)
     if (emis.length !== 15 || !/^\d{15}$/.test(emis)) {
         emisError.textContent = "EMIS number must be exactly 15 digits";
         return;
-    }
-
-    // Class validation (only I–XII)
-    const allowedClasses = [
-        "I", "II", "III", "IV", "V", "VI", "VII",
-        "VIII", "IX", "X", "XI", "XII"
-    ];
-    if (!allowedClasses.includes(studentclass.toUpperCase())) {
-        ClassError.textContent = "Enter valid class (I to XII only)";
-        return;
-    }
-
-        
+    }    
         // Validate
         if (
             name && last && dob && gender && studentclass &&
@@ -163,9 +146,9 @@ if (form) {
             <td>${student.phone}</td>
             <td>${student.address}</td>
             <td>
-              <button class="btn btn-primary btn-sm" onclick="viewStudent('${student.id}')">View</button>
-              <button class="btn btn-warning btn-sm" onclick="editStudent('${student.id}')">Edit</button>
-              <button class="btn btn-danger btn-sm" onclick="deleteStudent('${student.id}')">Delete</button>
+              <button class="btn btn-primary btn-sm" onclick="viewStudent('${student.id}')"><i class="fas fa-eye"></i></button>
+              <button class="btn btn-warning btn-sm" onclick="editStudent('${student.id}')"><i class="fas fa-edit"></i></button>
+              <button class="btn btn-danger btn-sm" onclick="deleteStudent('${student.id}')"><i class="fas fa-trash-alt"></i></button>
             </td>
           </tr>
         `;
@@ -232,7 +215,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
         for (let row of rows) {
             const firstName = row.cells[1]?.textContent.toLowerCase();
-            if (firstName.includes(filter)) {
+            const lastName = row.cells[2]?.textContent.toLowerCase();
+            const dob = row.cells[3]?.textContent.toLowerCase();
+            const studentClass = row.cells[5]?.textContent.toLowerCase();
+            const section = row.cells[6]?.textContent.toLowerCase();
+            const joinDate = row.cells[8]?.textContent.toLowerCase();
+               if (
+                firstName.includes(filter) ||
+                lastName.includes(filter) ||
+                dob.includes(filter) ||
+                studentClass.includes(filter) ||
+                section.includes(filter) ||
+                joinDate.includes(filter)
+            ){
                 row.style.display = "";
             } else {
                 row.style.display = "none";
@@ -246,7 +241,7 @@ const fields = [
   { id: "name", errorId: "nameError" },
   { id: "last", errorId: "lastError" },
   { id: "dob", errorId: "dobError" },
-  { id: "Class", errorId: "ClassError" },
+  { id: "class", errorId: "classError" },
   { id: "section", errorId: "sectionError" },
   { id: "emis", errorId: "emisError" },
   { id: "join", errorId: "joinError" },
@@ -275,8 +270,11 @@ genderInputs.forEach(input => {
 });
 
 function formatDateToDMY(dateString) {
-  const [year, month, day] = dateString.split("-");
-  return `${day}-${month}-${year}`;
+   const date = new Date(dateString);
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // Month is 0-indexed
+  const year = date.getFullYear();
+  return `${month}-${day}-${year}`;
 }
 
 // Restrict phone input to exactly 10 digits
@@ -286,40 +284,13 @@ phoneInput.addEventListener("input", () => {
     phoneInput.value = phoneInput.value.slice(0, 10);
   }
 });
-function goBack() {
-    window.location.href = "index.html"; // 🔁 your form page path
+
+const emisInput = document.getElementById("emis");
+emisInput.addEventListener("input", () => {
+  if (emisInput.value.length > 15) {
+    emisInput.value = emisInput.value.slice(0, 15);
   }
-
-// form.addEventListener("submit", function (e) {
-//   // Phone number validation (only 10 digits)
-//   if (phoneInput.value.length !== 10) {
-//     phoneError.textContent = "Phone number must be exactly 10 digits";
-//     e.preventDefault();
-//     return;
-//   }
-
-//   // EMIS validation (exactly 15 digits)
-//   const emisInput = document.getElementById("emis");
-//   if (emisInput.value.length !== 15) {
-//     emisError.textContent = "EMIS must be exactly 15 digits";
-//     e.preventDefault();
-//     return;
-//   }
-
-//   // Class validation (only I to XII)
-//   const allowedClasses = [
-//     "I", "II", "III", "IV", "V", "VI", "VII",
-//     "VIII", "IX", "X", "XI", "XII"
-//   ];
-//   const classInput = document.getElementById("Class");
-//   if (!allowedClasses.includes(classInput.value.trim().toUpperCase())) {
-//     ClassError.textContent = "Enter valid class (I to XII only)";
-//     e.preventDefault();
-//     return;
-//   }
-// });
-
-
-
-
-
+});
+function goBack() {
+    window.location.href = "index.html";
+  }

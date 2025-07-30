@@ -14,13 +14,13 @@
   <div class="container py-4">
     <div class="text-center mb-4">
       <span class="material-symbols-outlined ">person_add</span>
-      <h2>Register Form</h2>
+      <h2><b>Register Form </b></h2>
     </div>
-    <form id="registerform">
+    <form id="registerform" autocomplete="off">
       <div class="row">
         <div class="col-md-6">
           <label for="name">First Name<span class="text-danger">*</span></label>
-          <input type="text" id="name" class="form-control" placeholder="First Name" autocomplete="name">
+          <input type="text" id="name" class="form-control" placeholder="First Name">
           <span class="error" id="nameError"></span>
         </div>
         <div class="col-md-6">
@@ -46,9 +46,15 @@
 
       <div class="row mt-2">
         <div class="col-md-6">
-          <label for="Class">Class<span class="text-danger">*</span></label>
-          <input type="text" id="Class" class="form-control" style="text-transform:uppercase;">
-          <span class="error" id="ClassError"></span>
+          <label for="class">Class<span class="text-danger">*</span></label>
+          <select id="class" class="form-select">
+          <option value="">Choose</option>
+            <option>IX</option>
+            <option>X</option>
+            <option>XI</option>
+            <option>XII</option>
+          </select>
+          <span class="error" id="classError"></span>
         </div>
         <div class="col-md-6">
           <label for="section">Section<span class="text-danger">*</span></label>
@@ -64,7 +70,7 @@
 
       <div class="mt-2">
         <label for="emis">EMIS Number<span class="text-danger">*</span></label>
-        <input type="number" id="emis" class="form-control" maxlength="15" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+        <input type="number" id="emis" class="form-control" placeholder="EMIS Number"  maxlength="15" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
         <span class="error" id="emisError"></span>
       </div>
 
@@ -76,18 +82,18 @@
         </div>
         <div class="col-md-6">
           <label for="phone">Phone Number<span class="text-danger">*</span></label>
-          <input type="number" id="phone" class="form-control" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '' )" />
+          <input type="number" id="phone" class="form-control" placeholder="Phone Number" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '' )" />
           <span class="error" id="phoneError"></span>
         </div>
       </div>
 
       <div class="mt-2">
         <label for="address">Address<span class="text-danger">*</span></label>
-        <input type="text" id="address" class="form-control">
+        <input type="text" id="address" class="form-control" placeholder="Address">
         <span class="error" id="addressError"></span>
       </div>
 
-      <div class="text-center mt-0">
+      <div class="text-end mt-0">
         <button type="submit" class="btn btn-primary">Register</button>
       </div>
       <div class="text-center mt-2">

@@ -17,9 +17,9 @@ body{
     }
    .material-symbols-outlined{
     font-size: 48px;
-    color: #da8c62;
+    color: #198754;
     border-radius: 50%;
-     border: 6px solid #9fc3e0;
+     border: 6px solid #343a40;
      display: inline-block;
      margin-bottom: 10px;
     }
@@ -78,6 +78,9 @@ body{
 
 
    /* table */
+   .container-fluid{
+     width: 102%;
+   }
    .table th, table td{
     vertical-align: middle;
     text-align: center;
@@ -94,7 +97,6 @@ body{
   background-color: #fff;
 }
 
-/* Style for modal header */
 #viewModal .modal-header {
   background-color: #007bff;
   color: white;
@@ -102,14 +104,11 @@ body{
   border-radius: 12px 12px 0 0;
   padding: 15px 20px;
 }
-
-/* Modal title */
 #viewModal .modal-title {
   font-weight: 600;
   font-size: 20px;
 }
 
-/* Close button */
 #viewModal .btn-close {
   background-color: white;
   opacity: 1;
@@ -135,4 +134,61 @@ body{
   background-color: #f1f1f1;
   font-weight: 600;
 }
+
+/* Mobile view adjustments */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .btn {
+    font-size: 0.9rem;
+    padding: 6px 12px;
+  }
+
+  #searchInput {
+    margin-top: 10px;
+  }
+
+  .table {
+    font-size: 0.8rem;
+    white-space: nowrap;
+    overflow-x: auto;
+    display: block;
+  }
+
+  .table thead {
+    display: none;
+  }
+
+  .table tbody tr {
+    display: block;
+    margin-bottom: 15px;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    padding: 50px;
+  }
+
+  .table tbody td {
+    display: flex;
+    justify-content: center;
+    padding: 8px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    flex-direction: row-reverse;
+  }
+
+  .table tbody td:before {
+    content: attr(data-label);
+    font-weight: bold;
+    flex: 1;
+    text-align: center;
+  }
+
+  .modal-dialog {
+    margin: 0 10px;
+  }
+}
+
 
